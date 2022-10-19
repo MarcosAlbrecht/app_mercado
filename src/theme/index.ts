@@ -17,7 +17,9 @@ export default {
       GRAY_100: '#E1E1E6',
 
       BLUE: '#0000FF',
-      ORANGE: '#FF8C00'
+      ORANGE: '#FF8C00',
+
+      BLACK: '#000'
     },
     FONT_FAMILY: {
       REGULAR: 'Roboto_400Regular',

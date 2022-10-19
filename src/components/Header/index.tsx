@@ -19,6 +19,7 @@ export function Header({ showBackButton = false, title }: Props){
             </BackButton>
             }
             <Title>{title}</Title>
+            <Title></Title>
         </Container>
     )
 }

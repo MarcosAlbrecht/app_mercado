@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { Login } from '@screens/Login';
 import { useState } from 'react';
-import { AppRoutes } from './App.routes';
+import { AppRoutes } from './app.routes';
 
 export function Routes(){
     const [admin, setAdmin] = useState(false);

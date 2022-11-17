@@ -1,4 +1,4 @@
-package com.appmercado;
+package app.mercado;
 
 import android.os.Build;
 import android.os.Bundle;

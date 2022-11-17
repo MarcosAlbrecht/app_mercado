@@ -1,4 +1,4 @@
-package com.appmercado.newarchitecture.modules;
+package app.mercado.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;

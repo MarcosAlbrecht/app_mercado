@@ -1,23 +1,49 @@
-import { CardCategory } from '@components/CardCategory';
+import { CardCategory, CategoriesProps } from '@components/CardCategory';
 import { Header } from '@components/Header';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 import { Container, ContainerBody, Text } from './styles';
+
+
+import firestore from '@react-native-firebase/firestore';
+
 
 // import { Container } from './styles';
 
 export function Category(){
-  const [categorys, setCategosrys] = useState([
-    {"image":"STEAK", "title":"Açougue"},
-    {"image":"STEAK", "title":"Padaria"}, 
-    {"image":"STEAK", "title":"Frios"},
-    {"image":"STEAK", "title":"Abc"},
-    {"image":"STEAK", "title":"aasd"},
-    {"image":"STEAK", "title":"A33asbc"},
-    {"image":"STEAK", "title":"asfc"},
-    {"image":"STEAK", "title":"56745"},
+  const [isLoading, setIsLoading] = useState(true);
 
-  ])
+  const [categories, setCategories] = useState<CategoriesProps[]>([])
+
+  useEffect(() => {
+    setIsLoading(true)
+
+    const categories = firestore()
+    .collection('categories')
+    .onSnapshot({
+      error: (e) => console.log(e),
+      next: (querySnapshot) => {
+        const data = querySnapshot.docs.map(doc => {
+          const { active, title} = doc.data(); 
+          
+          return{
+            id: doc.id,
+            active,
+            title,      
+            
+          }
+        }) 
+        
+        setCategories(data);
+        setIsLoading(false);
+      }
+      
+
+      
+    });
+    
+    
+  }, [])
 
   return (
     <Container>
@@ -25,11 +51,11 @@ export function Category(){
         <ContainerBody>
           {/* <CardCategory image='STEAK' title='Açougue' /> */}
           <FlatList  
-            data={categorys}
+            data={categories}
             keyExtractor={item => item.title}
             renderItem={
               ({item}) => (
-                <CardCategory title={item.title} image={item.image} />
+                <CardCategory title={item.title} />
               )
             }
             numColumns={2}
@@ -37,7 +63,7 @@ export function Category(){
             showsVerticalScrollIndicator={false}
                 contentContainerStyle={[
                     { paddingBottom: 100 },
-                    categorys.length === 0 && {flex: 1}
+                    categories.length === 0 && {flex: 1}
                 ]}
           />
         </ContainerBody>

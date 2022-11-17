@@ -10,6 +10,8 @@ export const Container = styled.View`
     border-radius: 40px;
     
     margin-bottom: 10px;
+    
+    height: 170px;
 `;
 
 export const Text = styled.Text`
@@ -18,10 +20,12 @@ export const Text = styled.Text`
         font-family: ${theme.FONT_FAMILY.REGULAR};
         font-size: ${theme.FONT_SIZE.LG}px;
     ` } 
-    padding-bottom: 20px   
+    margin-top: 20px;
+    padding-bottom: 20px; 
+      
 `
 
 export const Image = styled.Image`
-    height: 130px;
+   height: 85px;   
     
 `

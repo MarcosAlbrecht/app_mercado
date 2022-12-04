@@ -27,7 +27,7 @@ export const Text = styled.Text`
         color: ${theme.COLORS.WHITE};
         font-size: ${ theme.FONT_SIZE.XL}px;
     ` };
-    padding-bottom: 100px;
+    padding-bottom: 150px;
 `
 
 export const TextCreateAccount = styled.Text`

@@ -1,10 +1,12 @@
 import React from 'react';
-import { Container, Text} from './styles';
+import { Container, Text, ContainerBody} from './styles';
 
 export function Home() {
   return (
     <Container>
-        <Text>Ola novo app</Text>
+        <ContainerBody>
+          <Text>Ola novo app</Text>
+        </ContainerBody>
     </Container>
   );
 }

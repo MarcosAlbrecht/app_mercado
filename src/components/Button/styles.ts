@@ -8,7 +8,7 @@ export const Container = styled(TouchableOpacity)`
     max-height: 40px;
 
     width: 100%;
-    margin-top: 30px;
+    margin-top: 10px;
     background-color: ${({theme}) => theme.COLORS.ORANGE};
 
     border-radius: 20px;

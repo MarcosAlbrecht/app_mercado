@@ -1,12 +1,13 @@
-import { NavigationContainer } from "@react-navigation/native";
-import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { Login } from '@screens/Login';
-import { useState, useEffect } from 'react';
-import { AppRoutes } from './app.routes';
 import { Loading } from "@components/Loading";
+import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { NavigationContainer } from "@react-navigation/native";
+import { addEmail } from "@redux/actions/user";
+import { Login } from '@screens/Login';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { addUser } from '../../redux/actions/user';
+import { AppRoutes } from './app.routes';
+import { LoginRegisterRoutes } from "./loginRegister.routes";
 
 export function Routes(){
     const [admin, setAdmin] = useState(false);
@@ -20,8 +21,13 @@ export function Routes(){
         const subscriber = auth().onAuthStateChanged(response => {
             setUser(response);
             setIsLoading(false);
-            dispatch(addUser(response.email))
+            
         })
+
+        if (user) {
+            dispatch(addEmail(user.email))
+        }
+
 
         return subscriber;
     }, []);
@@ -32,7 +38,7 @@ export function Routes(){
 
     return(      
          <NavigationContainer>
-            {user ? <AppRoutes/> : <Login/>}
+            {user ? <AppRoutes/> : <LoginRegisterRoutes/>}
         </NavigationContainer>
         
     );

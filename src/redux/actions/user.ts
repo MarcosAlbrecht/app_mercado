@@ -1,6 +1,6 @@
-export const addUser = (email: string) => {
+export const addEmail = (email: string) => {
     return {
-      type: 'ADD_USER',
+      type: 'ADD_EMAIL',
       payload: email,
     };
   };

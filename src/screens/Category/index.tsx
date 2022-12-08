@@ -6,6 +6,7 @@ import { Container, ContainerBody, Text } from './styles';
 
 
 import firestore from '@react-native-firebase/firestore';
+import { Loading } from '@components/Loading';
 
 
 // import { Container } from './styles';
@@ -49,7 +50,8 @@ export function Category(){
     <Container>
         
         <ContainerBody>
-          {/* <CardCategory image='STEAK' title='Açougue' /> */}
+         
+          {isLoading ? <Loading/> :
           <FlatList  
             data={categories}
             keyExtractor={item => item.title}
@@ -66,6 +68,7 @@ export function Category(){
                     categories.length === 0 && {flex: 1}
                 ]}
           />
+          }
         </ContainerBody>
         
     </Container>

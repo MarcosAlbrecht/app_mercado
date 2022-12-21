@@ -6,6 +6,7 @@ import { addEmail } from "@redux/actions/user";
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 import { Routes } from '../../../routes/AppRoutes';
 import { Container, CreateAccount, LoginInputs, Text, TextCreateAccount } from './styles';
@@ -19,7 +20,10 @@ export function RegisterEmail() {
 
   const dispatch = useDispatch();
 
-  function handleSignIn(){
+  const navigation = useNavigation();
+
+  function handleCreateEmail(){
+    setIsLoading(true);  
     if (!email || !password || !confirmPassword) {
       return Alert.alert('Entrar','Informe email e senha.');
     }  
@@ -27,31 +31,13 @@ export function RegisterEmail() {
     if (password != confirmPassword) {
       return Alert.alert('Entrar','As senhas devem ser iguais.');  
     }
+    setIsLoading(false);
+    
+    console.log(email);
+    console.log(password);
 
-    setIsLoading(true);
-
-    auth().signInWithEmailAndPassword(email, password)
-    .catch((error) => {
-      console.log(error)
-      setIsLoading(false);
-
-      if (error.code === 'auth/invalid-email') {
-        return Alert.alert('Entrar', 'E-mail inválido');
-      }
-      if (error.code === 'auth/user-not-found') {
-          return Alert.alert('Entrar', 'E-mail ou senha inválido');   
-      }
-      if (error.code === 'auth/wrong-password') {
-          return Alert.alert('Entrar', 'E-mail ou senha inválido');
-      }
-
-      return Alert.alert('Entrar', 'Não foi possível acessar');
-
-    } )
-
-      console.log(email);
-      console.log(password);
-      dispatch(addEmail(email))
+    navigation.navigate('registerUserAddress',{email, password})   
+      
      
   }
 
@@ -59,11 +45,11 @@ export function RegisterEmail() {
 
     <Container>
         <LoginInputs>
-          <Text>MERCADO ESTRELA</Text>
+          
           <Input placeholder="email" keyboardType='email-address' onChangeText={setEmail} />
           <Input placeholder="senha" secureTextEntry={true} onChangeText={setPassword}/>
           <Input placeholder="confirmar senha" secureTextEntry={true} onChangeText={setConfirmPassword}/>
-          <Button title="Próximo"  onPress={() => {}}/>
+          <Button title="Próximo"  onPress={handleCreateEmail}/>
         </LoginInputs>
 
     </Container>

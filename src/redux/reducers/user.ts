@@ -1,6 +1,6 @@
 const initialState = {
     email: '',
-
+    user:[],
 };
 
 export default (state = initialState, action) => {
@@ -11,6 +11,12 @@ export default (state = initialState, action) => {
         return {
           ...state,
           email: state.email = action.payload,
+        };
+
+      case 'ADD_USER':
+        return {
+          ...state,
+          user: [...state.user = action.payload],
         };
       
       default:

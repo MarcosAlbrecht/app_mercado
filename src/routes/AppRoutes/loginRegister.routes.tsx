@@ -1,7 +1,9 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Login } from "@screens/Login";
+import { RegisterUserAddress } from "@screens/Register/Address";
 import { RegisterEmail } from "@screens/Register/Email";
 import React from 'react';
+
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -20,6 +22,7 @@ export function LoginRegisterRoutes(){
             }}>
             <Screen name="login" component={Login}/>
             <Screen name="registerEmail" component={RegisterEmail} options={{title: "Criar Conta"}}/>
+            <Screen name="registerUserAddress" component={RegisterUserAddress} options={{title: "Criar Conta"}}/>
         </Navigator>
     )
 }

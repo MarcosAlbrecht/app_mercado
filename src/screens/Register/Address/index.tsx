@@ -22,12 +22,12 @@ type RouteParams = {
 export function RegisterUserAddress() {
     const route = useRoute();
     const { email, password } = route.params as RouteParams;
-    const { cep, setCep } = useState('');
-    const { city, setCity } = useState('');
-    const { district, setDistrict } = useState('');
-    const { street, setStreeet } = useState('');
-    const { number, setNumber } = useState('');
-    const { uuid, setUuid } = useState('');
+    const [ cep, setCep ] = useState('');
+    const [ city, setCity ] = useState('');
+    const [ district, setDistrict ] = useState('');
+    const [ street, setStreeet ] = useState('');
+    const [ number, setNumber ] = useState('');
+    const [ uid, setUid ] = useState('');
     
     const[isLoading, setIsLoading] = useState(false);
 
@@ -41,8 +41,8 @@ export function RegisterUserAddress() {
         auth()
         .createUserWithEmailAndPassword(email, password)
         .then((res) => {
-            console.log(res.user);
-            setUuid(res.user);
+            console.log(res.user.uid);
+            setUid(res.user.uid);
             // firestore()
             // .collection('users')
             // .add({
@@ -59,7 +59,7 @@ export function RegisterUserAddress() {
 
 
             setIsLoading(false) 
-            dispatch(addUser())  
+            //dispatch(addUser())  
         })
         .catch((error) => {
             console.log('erro ao criar user', error.message)

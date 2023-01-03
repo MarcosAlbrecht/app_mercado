@@ -43,18 +43,24 @@ export function RegisterUserAddress() {
         .then((res) => {
             console.log(res.user.uid);
             setUid(res.user.uid);
-            // firestore()
-            // .collection('users')
-            // .add({
-            //     email,
-            //     cep,
-            //     city,
-            //     district,
-            //     street,
-            //     number,
-            //     auth_id: uuid,
-            //     created_at: firestore.FieldValue.serverTimestamp()    
-            // })
+            firestore()
+            .collection('users')
+            .add({
+                email,
+                cep,
+                city,
+                district,
+                street,
+                number,
+                auth_id: res.user.uid,
+                created_at: firestore.FieldValue.serverTimestamp()    
+            })
+            .then((result) => {
+                console.log('Usuario criado com sucesso', result);    
+            })
+            .catch((err) => {
+                console.log('Erro ao inserir dados do usuario', err);
+            })
 
 
 

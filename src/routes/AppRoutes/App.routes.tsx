@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Category from '@screens/Category';
 import { Home } from "@screens/Home";
+import { DrawerContent } from "@screens/Drawer/DrawerContent";
 
 import React from 'react';
 
@@ -29,7 +30,9 @@ export function AppRoutes() {
   //     <Screen  name='category' component={Category} options={{title: "Categorias"}} />
      
   // </Navigator>
-    <Drawer.Navigator initialRouteName="Home">
+    <Drawer.Navigator 
+      initialRouteName="Home" 
+      drawerContent={props => <DrawerContent {...props}/>}>
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="Category" component={Category} />
     </Drawer.Navigator>

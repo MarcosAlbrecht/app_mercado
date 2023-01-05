@@ -9,14 +9,14 @@ import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
 export function Home() {
   const dispatch = useDispatch(); 
-  const email = useSelector((store) => store.email.email)
+  const state = useSelector((store) => store.user)
 
   function handleSignOut(){
     auth().signOut()
   }
 
   useEffect(() => {
-    
+    console.log('dados do state: ',state)  
     
   },[])
 
@@ -25,7 +25,8 @@ export function Home() {
   return (
     <Container>
         <ContainerBody>
-          <Text>Ola novo {email}</Text>
+          
+          <Text>Ola novo {state.user.email}</Text>
           <Button title='Sair' onPress={handleSignOut}></Button>
         </ContainerBody>
     </Container>

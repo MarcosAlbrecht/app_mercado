@@ -16,7 +16,7 @@ export function Routes(){
     const [user, setUser] = useState<FirebaseAuthTypes.User>();
 
     const dispatch = useDispatch();
-    
+   
 
     useEffect(() => {
         const subscriber = auth().onAuthStateChanged(response => {
@@ -26,7 +26,7 @@ export function Routes(){
         })
 
         if (user) {
-            dispatch(addEmail(user.email))
+            
         }
 
 

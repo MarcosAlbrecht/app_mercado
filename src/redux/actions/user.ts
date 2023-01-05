@@ -4,7 +4,7 @@ export const addEmail = (email: string) => {
     payload: email,
   };
 };
-export const addUser = (user: string) => {
+export const addUser = (user: object) => {
   return {
     type: 'ADD_USER',
     payload: user,

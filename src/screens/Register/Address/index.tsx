@@ -35,6 +35,17 @@ export function RegisterUserAddress() {
 
     const navigation = useNavigation();
 
+    const user = {
+        email : email,
+        cep: cep,
+        city : city,
+        district : district,
+        street : street,
+        number : number,
+        auth_id: uid,
+        created_at: firestore.FieldValue.serverTimestamp()     
+    }
+
     function handleCreateUser(){
         setIsLoading(true)
 
@@ -56,7 +67,17 @@ export function RegisterUserAddress() {
                 created_at: firestore.FieldValue.serverTimestamp()    
             })
             .then((result) => {
-                console.log('Usuario criado com sucesso', result);    
+                console.log('Usuario criado com sucesso', result); 
+                dispatch(addUser({
+                    email,
+                    cep,
+                    city,
+                    district,
+                    street,
+                    number,
+                    auth_id: res.user.uid,
+                    created_at: new Date().toTimeString(), 
+                }));   
             })
             .catch((err) => {
                 console.log('Erro ao inserir dados do usuario', err);

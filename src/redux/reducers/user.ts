@@ -1,6 +1,6 @@
 const initialState = {
     email: '',
-    user:[],
+    user:{},
 };
 
 export default (state = initialState, action) => {
@@ -16,8 +16,14 @@ export default (state = initialState, action) => {
       case 'ADD_USER':
         return {
           ...state,
-          user: [...state.user = action.payload],
+          user: {...state.user = action.payload},
         };
+
+      case 'CLEAN_USER':
+        return {
+          ...state,
+          user: {},
+        }  
       
       default:
         return state;

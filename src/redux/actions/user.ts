@@ -10,3 +10,9 @@ export const addUser = (user: object) => {
     payload: user,
   };
 };
+
+export const CleanUser = () => {
+  return {
+    type: 'ADD_USER',
+  };
+};

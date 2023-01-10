@@ -6,29 +6,70 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { addUser, CleanUser } from "@redux/actions/user";
+
+import firestore from '@react-native-firebase/firestore';
+
+import { UserFirestoreDTO } from 'src/DTOs/UserFirestoreDTO';
+
 import { Container, CreateAccount, LoginInputs, Text } from './styles';
 
 export function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [uid ,setUid] = useState('');
+  const [user, setUser] = useState();
 
   const [isLoading, setIsLoading] = useState(false);
 
   const navigation = useNavigation();
+
+  const dispatch = useDispatch();
 
 
   function handleCreateAccount() {
     navigation.navigate('registerEmail');
   }
 
-  function handleSignIn() {
+  async function handleSignIn() {
     if (!email || !password) {
       return Alert.alert('Entrar', 'Informe email e senha.');
     }
 
     setIsLoading(true);
 
-    auth().signInWithEmailAndPassword(email, password)
+    await auth().signInWithEmailAndPassword(email, password)
+      .then((result) => {
+        console.log('uid', result.user.uid) 
+        //console.log(result.user) 
+        setUid(result.user.uid);
+
+        firestore()
+        .collection<UserFirestoreDTO>('users')      
+        .where('auth_id','==',result.user.uid )   
+        .get()
+        .then((querySnapshot) => {
+            console.log('Total users: ', querySnapshot.size);
+
+            if (querySnapshot.size === 0) {
+              dispatch(CleanUser())   
+            }else{
+
+              querySnapshot.forEach(documentSnapshot => {
+                console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+                const user = documentSnapshot.data();
+                console.log('user', user)
+
+                dispatch(addUser(user))
+              });
+            }
+        })
+        .catch((err) => {
+          console.log('erro ao bucar user', err)
+        })
+
+      })
       .catch((error) => {
         console.log(error)
         setIsLoading(false);

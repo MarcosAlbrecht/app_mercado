@@ -7,12 +7,11 @@ import { Loading } from "@components/Loading";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from "react";
+import { addUser } from "@redux/actions/user";
 
 import firestore from '@react-native-firebase/firestore';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { Alert } from 'react-native';
-
-import { addUser } from "@redux/actions/user";
 
 type RouteParams = {
     email: string;
@@ -63,11 +62,14 @@ export function RegisterUserAddress() {
                 district,
                 street,
                 number,
+                user_type: "client",
+                active: true,
                 auth_id: res.user.uid,
-                created_at: firestore.FieldValue.serverTimestamp()    
+                created_at: firestore.FieldValue.serverTimestamp(),
+                updatet_at: ""    
             })
             .then((result) => {
-                console.log('Usuario criado com sucesso', result); 
+                //console.log('Usuario criado com sucesso', result); 
                 dispatch(addUser({
                     email,
                     cep,
@@ -75,8 +77,11 @@ export function RegisterUserAddress() {
                     district,
                     street,
                     number,
+                    user_type: "client",
+                    active: true,
                     auth_id: res.user.uid,
-                    created_at: new Date().toTimeString(), 
+                    created_at: new Date().toDateString(),
+                    updatet_at: "", 
                 }));   
             })
             .catch((err) => {

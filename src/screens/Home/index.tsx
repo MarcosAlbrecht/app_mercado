@@ -18,7 +18,7 @@ export function Home() {
   useEffect(() => {
     console.log('dados do state: ',state)  
     
-  },[])
+  },[state])
 
 
 
@@ -26,7 +26,7 @@ export function Home() {
     <Container>
         <ContainerBody>
           
-          <Text>Ola novo {state.user.email}</Text>
+          <Text>Ola novo {state.user?.email}</Text>
           <Button title='Sair' onPress={handleSignOut}></Button>
         </ContainerBody>
     </Container>

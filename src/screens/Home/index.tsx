@@ -6,6 +6,7 @@ import { addUser } from '../../redux/actions/user';
 import { Button } from '@components/Button';
 
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { Products } from '@screens/Products';
 
 export function Home() {
   const dispatch = useDispatch(); 
@@ -27,6 +28,7 @@ export function Home() {
         <ContainerBody>
           
           <Text>Ola novo {state.user?.email}</Text>
+          <Products />
           <Button title='Sair' onPress={handleSignOut}></Button>
         </ContainerBody>
     </Container>

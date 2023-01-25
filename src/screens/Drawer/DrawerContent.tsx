@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { Container, UserInfoSection, NameUser, DrawerSection, DrawerSectionBottom } from './styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -13,14 +13,21 @@ import {
     TouchableRipple,
     Switch
 } from 'react-native-paper';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 import { useNavigation } from '@react-navigation/native';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { Alert } from 'react-native';
 
-export function DrawerContent(props){
+export function DrawerContent(props: any){
     const navigation = useNavigation();
+    const state = useSelector((store) => store.user)
+
+    useEffect(() => {
+        //console.log('dados do state: ',state)  
+        
+    },[state])
 
     function handleSignOut(){
         console.log('clicou em sair') 
@@ -44,7 +51,11 @@ export function DrawerContent(props){
             <DrawerContentScrollView {...props}>
                 <Container>
                     <UserInfoSection>
-                        <NameUser>Nome do usuário</NameUser>
+                        {state.user?.email ?       
+                            <NameUser>Olá {state.user?.email}</NameUser>
+                            :
+                            <NameUser>Olá...</NameUser>
+                        }
                     </UserInfoSection> 
                     <Drawer.Section>
                         <DrawerSection>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, 
     DivImage, 
     DivInfomartions, 
@@ -19,7 +19,20 @@ import { Container,
 import { TouchableOpacityProps } from 'react-native';
 
 
+
 export function Products(){
+    const [quantity, setQuantity] = useState(1);
+
+    function handleAddQuantity(){
+        setQuantity(quantity+1)    
+    }
+
+    function handleMinusQuantity(){
+        if(quantity > 1){
+            setQuantity(quantity-1)
+        }    
+    }
+
     return(
         <Container>
             <DivImage>
@@ -42,12 +55,10 @@ export function Products(){
                     </DivButtonAdd>
 
                     <DivButtonsAddMinus>
-                        <ButtonPlus><TitleButton>+</TitleButton>
+                        <ButtonPlus onPress={handleAddQuantity}><TitleButton>+</TitleButton>
                         </ButtonPlus>
-
-                        <TextQuantiry>1</TextQuantiry>
-
-                        <ButtonMinus>
+                            <TextQuantiry>{ quantity }</TextQuantiry>
+                        <ButtonMinus onPress={handleMinusQuantity}>
                             <TitleButton>-</TitleButton>
                         </ButtonMinus>
                     </DivButtonsAddMinus>
